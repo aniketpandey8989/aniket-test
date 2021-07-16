@@ -3,7 +3,7 @@
 1.  Explain the difference between an abstract class and an interface.
 
     ```sh
-    Both are used to achieve abstraction but , But an abstract class can have abstract and non-abstract methods but interfaces are pure form of abstraction . We can achieve multiple inheritence via abstract class but interfaces can't participate in multiple inharitence .
+    Both are used to achieve abstraction but , But an abstract class can have abstract and non-abstract methods but interfaces are pure form of abstraction . We can achieve multiple inheritence via abstract class but interfaces cannot participate in multiple inharitence .
     ```
 2. What is the purpose of getters and setters in a class?
 
