@@ -2,23 +2,33 @@ const fs = require('fs');
 const path = require('path');
 const inputFilePath = path.join(__dirname, '', 'input.json');
 
-function getFileContents(path) {
+async function getFileContents(path) {
     try {
-        fs.accessSync(path);
-        const stats = fs.statSync(path);
-        if (stats) {
-            if (stats.size > 0) {
-                return fs.readFileSync(path, 'utf8');
-            } else {
-                console.error('File exists but there is no content');
-            }
-        }
+        return new Promise(async(resolve, reject) => {
+             fs.stat(path,async function (err, stats) {
+                if (err) 
+                {
+                    reject('File does not exist');
+                }
+                    if (stats&&stats.size > 0) {
+                        fs.readFile(path, "utf8",function (err, data) {
+                            if (err) reject(err);
+                            resolve(data)
+                          });
+                    } else {
+                        reject('File exists but there is no content')
+                    }
+              });
+        })
     } catch (err) {
-        console.error('File does not exist');
+       console.error(err);
     }
 }
 
-const contents = getFileContents(inputFilePath);
-if (contents) {
-    console.log(contents);
-}
+ getFileContents(inputFilePath).then((res)=>{
+    if (res) {
+        console.log(res);
+    }
+}).catch((err)=>{
+    console.error(err)
+});
